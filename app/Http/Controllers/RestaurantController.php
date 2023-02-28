@@ -54,7 +54,55 @@ class RestaurantController extends Controller
         $restaurant->description = $validatedData['description'];
         $restaurant->review = $validatedData['review'];
         $restaurant->save();
+    }
 
+    public function edit($id)
+    {
+        // Récupérer le restaurant correspondant à l'ID donné
+        $restaurant = Restaurant::find($id);
+
+        // Vérifier si le restaurant existe
+        if (!$restaurant) {
+            abort(404);
+        }
+
+        // Passer le restaurant à la vue edit.blade.php
+        return view('restaurants.edit', ['restaurant' => $restaurant]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Valider les données du formulaire
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'address' => 'required',
+            'zipCode' => 'required|numeric',
+            'town' => 'required',
+            'country' => 'required',
+            'description' => 'required',
+            'review' => 'required|numeric',
+        ]);
+
+        // Récupérer le restaurant correspondant à l'ID donné
+        $restaurant = Restaurant::find($id);
+
+        // Vérifier si le restaurant existe
+        if (!$restaurant) {
+            abort(404);
+        }
+
+        // Mettre à jour le restaurant avec les données soumises
+        $restaurant->name = $validatedData['name'];
+        $restaurant->address = $validatedData['address'];
+        $restaurant->zipCode = $validatedData['zipCode'];
+        $restaurant->town = $validatedData['town'];
+        $restaurant->country = $validatedData['country'];
+        $restaurant->description = $validatedData['description'];
+        $restaurant->review = $validatedData['review'];
+        $restaurant->save();
+
+        // Rediriger vers la page du restaurant mis à jour
+        return redirect("/restaurants/show/{$restaurant->id}");
     }
 
 }
