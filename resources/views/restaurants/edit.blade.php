@@ -1,4 +1,14 @@
-    <h1>Modifier le restaurant "{{ $restaurant->name }}"</h1>
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+   <h1>Modifier le restaurant "{{ $restaurant->name }}"</h1>
 
     <form action="{{ route('restaurants.update', ['id' => $restaurant->id]) }}" method="POST">
     @csrf
