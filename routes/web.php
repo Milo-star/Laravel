@@ -29,4 +29,7 @@ Route::get('/restaurants/create', [App\Http\Controllers\RestaurantController::cl
 
 Route::post('/restaurants', [App\Http\Controllers\RestaurantController::class, 'store']);
 
+// Route pour modifier un restaurant
+
+
 

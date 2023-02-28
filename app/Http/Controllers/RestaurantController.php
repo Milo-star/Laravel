@@ -56,4 +56,5 @@ class RestaurantController extends Controller
         $restaurant->save();
 
     }
+
 }
